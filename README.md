@@ -35,9 +35,11 @@ Publicou algo no painel? O site atualiza sozinho em até 1 minuto.
 A aba **Importar** do painel cria os quatro primeiros projetos a partir de `public/seed/`.
 Depois de importados, a pasta `public/seed/` e o arquivo `src/sanity/seedTool.tsx` podem ser apagados.
 
-## Variáveis de ambiente (cadastradas na Vercel)
+## Variáveis de ambiente (opcionais)
+
+O projeto do Sanity (`cctrc9we`, dataset `production`) já é o padrão no código. As variáveis só são necessárias para apontar para outro projeto.
 
 ```
-NEXT_PUBLIC_SANITY_PROJECT_ID=...
+NEXT_PUBLIC_SANITY_PROJECT_ID=cctrc9we
 NEXT_PUBLIC_SANITY_DATASET=production
 ```
