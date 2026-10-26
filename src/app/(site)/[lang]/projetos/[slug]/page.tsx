@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import { Blocks } from '@/components/Blocks'
 import { getProject, getProjects } from '@/lib/data'
 import { imageUrl } from '@/lib/image'
+import { Lines } from '@/components/RichText'
 import { isLang, L, paragraphs, ui, type Lang } from '@/lib/i18n'
 
 export const revalidate = 60
@@ -55,7 +56,9 @@ export default async function ProjectPage({ params }: Props) {
         {desc.length > 0 && (
           <div className="project-desc">
             {desc.map((d, j) => (
-              <p key={j}>{d}</p>
+              <p key={j}>
+                <Lines text={d} />
+              </p>
             ))}
           </div>
         )}

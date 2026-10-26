@@ -1,3 +1,5 @@
+import type { LocalizedRich } from '@/components/RichText'
+
 export type Localized = { pt?: string; en?: string }
 
 export type SanityImg = {
@@ -18,7 +20,7 @@ export type ProjectCard = {
 export type Block =
   | { _type: 'imageBlock'; _key: string; image: SanityImg; caption?: Localized }
   | { _type: 'imagePairBlock'; _key: string; left: SanityImg; right: SanityImg; ratio?: string }
-  | { _type: 'textBlock'; _key: string; heading?: Localized; body?: Localized }
+  | { _type: 'textBlock'; _key: string; heading?: Localized; body?: LocalizedRich }
   | { _type: 'vimeoBlock'; _key: string; url?: string; ratio?: string; loop?: boolean; caption?: Localized }
 
 export type Project = ProjectCard & {

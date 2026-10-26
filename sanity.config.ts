@@ -3,7 +3,7 @@
 import { defineConfig } from 'sanity'
 import { structureTool } from 'sanity/structure'
 import { schemaTypes } from './src/sanity/schemaTypes'
-import { SeedTool } from './src/sanity/seedTool'
+import { MaintenanceTool } from './src/sanity/maintenanceTool'
 import { projectId, dataset } from './src/sanity/env'
 
 export default defineConfig({
@@ -29,7 +29,7 @@ export default defineConfig({
           ]),
     }),
   ],
-  tools: (prev) => [...prev, { name: 'importar', title: 'Importar', component: SeedTool }],
+  tools: (prev) => [...prev, { name: 'manutencao', title: 'Manutenção', component: MaintenanceTool }],
   document: {
     // As Configurações do site são um documento único: não aparecem no botão "novo".
     newDocumentOptions: (prev) => prev.filter((t) => t.templateId !== 'siteSettings'),

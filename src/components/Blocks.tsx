@@ -1,7 +1,8 @@
 import { imageUrl, parseRatio, srcSet } from '@/lib/image'
-import { L, paragraphs, ui, type Lang } from '@/lib/i18n'
+import { L, ui, type Lang } from '@/lib/i18n'
 import type { Block, SanityImg } from '@/lib/types'
 import { Vimeo } from './Vimeo'
+import { pickRich, RichText } from './RichText'
 
 function Img({ img, alt, sizes, ratio, eager }: { img: SanityImg; alt: string; sizes: string; ratio?: number; eager?: boolean }) {
   if (!img?.url) return null
@@ -54,15 +55,13 @@ export function Blocks({ blocks, lang, title }: { blocks: Block[]; lang: Lang; t
           }
           case 'textBlock': {
             const heading = L(b.heading, lang)
-            const body = paragraphs(L(b.body, lang))
+            const body = pickRich(b.body, lang)
             if (!heading && !body.length) return null
             return (
-              <section key={b._key} className="block-text wrap">
-                {heading ? <h2 className="block-text__heading">{heading}</h2> : <span />}
+              <section key={b._key} className={`block-text wrap${heading ? '' : ' block-text--plain'}`}>
+                {heading && <h2 className="block-text__heading">{heading}</h2>}
                 <div className="block-text__body">
-                  {body.map((p, j) => (
-                    <p key={j}>{p}</p>
-                  ))}
+                  <RichText blocks={body} />
                 </div>
               </section>
             )

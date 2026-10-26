@@ -30,10 +30,9 @@ Publicou algo no painel? O site atualiza sozinho em até 1 minuto.
 - `src/sanity/schemaTypes/`: os campos do painel.
 - `src/lib/i18n.ts`: textos fixos da interface em PT e EN.
 
-## Importação inicial
+## Manutenção
 
-A aba **Importar** do painel cria os quatro primeiros projetos a partir de `public/seed/`.
-Depois de importados, a pasta `public/seed/` e o arquivo `src/sanity/seedTool.tsx` podem ser apagados.
+A aba **Manutenção** do painel converte blocos de texto antigos (texto puro) para o formato com links. Pode ser removida quando não houver mais textos antigos.
 
 ## Variáveis de ambiente (opcionais)
 

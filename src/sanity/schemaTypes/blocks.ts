@@ -62,11 +62,16 @@ export const textBlock = defineType({
   type: 'object',
   fields: [
     defineField({ name: 'heading', title: 'Título (opcional)', type: 'localeString' }),
-    defineField({ name: 'body', title: 'Texto', type: 'localeText', validation: (r) => r.required() }),
+    defineField({ name: 'body', title: 'Texto', type: 'localeRich', validation: (r) => r.required() }),
   ],
   preview: {
     select: { heading: 'heading.pt', body: 'body.pt' },
-    prepare: ({ heading, body }) => ({ title: heading || (body ? String(body).slice(0, 60) : 'Texto'), subtitle: 'Texto' }),
+    prepare: ({ heading, body }) => {
+      const first = Array.isArray(body)
+        ? (body[0]?.children || []).map((c: { text?: string }) => c.text || '').join('')
+        : String(body || '')
+      return { title: heading || first.slice(0, 60) || 'Texto', subtitle: 'Texto' }
+    },
   },
 })
 

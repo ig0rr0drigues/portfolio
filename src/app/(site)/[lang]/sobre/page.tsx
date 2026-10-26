@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { getSettings } from '@/lib/data'
+import { Lines } from '@/components/RichText'
 import { isLang, L, paragraphs, ui, type Lang } from '@/lib/i18n'
 
 export const revalidate = 60
@@ -23,7 +24,9 @@ export default async function About({ params }: { params: Promise<{ lang: string
       <h1 className="about__lead">{L(s?.aboutLead, lang)}</h1>
       <div className="about__body">
         {body.map((p, i) => (
-          <p key={i}>{p}</p>
+          <p key={i}>
+            <Lines text={p} />
+          </p>
         ))}
       </div>
       <dl className="about__facts">

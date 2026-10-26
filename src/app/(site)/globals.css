@@ -124,6 +124,11 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--laranja); outli
 .block-text__heading { grid-column: 1 / span 4; margin: 0; font-family: var(--font-display), 'Arial Black', sans-serif; font-weight: 500; font-size: clamp(22px, 2.2vw, 32px); line-height: 1.15; letter-spacing: -0.02em; text-wrap: balance; }
 .block-text__body { grid-column: 6 / span 6; display: flex; flex-direction: column; gap: var(--space-4); font-size: 19px; line-height: 30px; max-width: 62ch; }
 .block-text__body p { margin: 0; }
+.block-text--plain .block-text__body { grid-column: 1 / span 8; }
+.block-text__body ul { margin: 0; padding-left: 1.1em; }
+.block-text__body li + li { margin-top: var(--space-1); }
+.rich-link { text-decoration: none; background-image: linear-gradient(var(--laranja), var(--laranja)); background-size: 100% 1px; background-position: 0 100%; background-repeat: no-repeat; transition: background-size 0.25s var(--ease), color 0.2s; }
+.rich-link:hover { color: var(--laranja-texto); background-size: 100% 2px; }
 .block-video { background: #000; }
 .vimeo { position: relative; width: 100%; max-height: 100vh; margin-inline: auto; }
 .vimeo--tall { width: auto; height: min(100vh, 900px); }
@@ -166,7 +171,7 @@ main { animation: page-in 0.5s var(--ease) both; }
 @keyframes page-in { from { opacity: 0.001; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
 @media (max-width: 900px) {
-  .project-desc, .credits, .about__lead, .about__body, .about__facts, .block-text__heading, .block-text__body { grid-column: 1 / -1; }
+  .project-desc, .credits, .about__lead, .about__body, .about__facts, .block-text__heading, .block-text__body, .block-text--plain .block-text__body { grid-column: 1 / -1; }
 }
 @media (max-width: 600px) {
   .grid { --cols: 1 !important; }
