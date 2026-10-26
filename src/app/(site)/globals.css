@@ -76,7 +76,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--laranja); outli
 /* Home */
 .hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 360px); align-items: end; gap: var(--space-6) var(--space-12); padding-block: clamp(48px, 9vw, 120px) clamp(32px, 5vw, 64px); }
 .hero__name { margin: 0; font-family: var(--font-display), 'Arial Black', sans-serif; font-weight: 700; font-size: clamp(44px, 9.4vw, 152px); line-height: 0.92; letter-spacing: -0.035em; }
-.hero__name span { display: block; }
+.hero__name span { display: block; white-space: nowrap; }
 .hero__dot { display: inline-block; width: 0.16em; height: 0.16em; background: var(--laranja); margin-left: 0.06em; }
 .hero__intro { margin: 0; color: var(--tinta-suave); max-width: 36ch; }
 .hero__intro strong { color: var(--tinta); font-weight: 500; }
