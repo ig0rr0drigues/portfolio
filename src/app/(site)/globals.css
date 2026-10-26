@@ -74,11 +74,11 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--laranja); outli
 .lang a[aria-current='true'] { background: var(--tinta); color: var(--papel); }
 
 /* Home */
-.hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 360px); align-items: end; gap: var(--space-6) var(--space-12); padding-block: clamp(48px, 9vw, 120px) clamp(32px, 5vw, 64px); }
+.hero { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: var(--space-6) var(--space-12); padding-block: clamp(48px, 9vw, 120px) clamp(32px, 5vw, 64px); }
 .hero__name { margin: 0; font-family: var(--font-display), 'Arial Black', sans-serif; font-weight: 700; font-size: clamp(44px, 9.4vw, 152px); line-height: 0.92; letter-spacing: -0.035em; }
 .hero__name span { display: block; white-space: nowrap; }
 .hero__dot { display: inline-block; width: 0.16em; height: 0.16em; background: var(--laranja); margin-left: 0.06em; }
-.hero__intro { margin: 0; color: var(--tinta-suave); max-width: 36ch; }
+.hero__intro { margin: 0; color: var(--tinta-suave); flex: 0 1 360px; max-width: 36ch; }
 .hero__intro strong { color: var(--tinta); font-weight: 500; }
 .empty { padding-block: var(--space-24); color: var(--tinta-suave); }
 
@@ -166,7 +166,6 @@ main { animation: page-in 0.5s var(--ease) both; }
 @keyframes page-in { from { opacity: 0.001; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
 @media (max-width: 900px) {
-  .hero { grid-template-columns: minmax(0, 1fr); }
   .project-desc, .credits, .about__lead, .about__body, .about__facts, .block-text__heading, .block-text__body { grid-column: 1 / -1; }
 }
 @media (max-width: 600px) {
