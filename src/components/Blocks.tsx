@@ -70,7 +70,7 @@ export function Blocks({ blocks, lang, title }: { blocks: Block[]; lang: Lang; t
             if (!b.url) return null
             return (
               <figure key={b._key} className="block-video">
-                <Vimeo url={b.url} ratio={b.ratio} loop={b.loop} title={L(b.caption, lang) || `${title} — ${t.video}`} />
+                <Vimeo url={b.url} ratio={b.ratio} customWidth={b.customWidth} customHeight={b.customHeight} loop={b.loop} title={L(b.caption, lang) || `${title} — ${t.video}`} />
                 <Caption text={L(b.caption, lang)} />
               </figure>
             )

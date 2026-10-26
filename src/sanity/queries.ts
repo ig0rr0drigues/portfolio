@@ -10,7 +10,7 @@ export const projectQuery = `*[_type == "project" && slug.current == $slug][0] {
   title, "slug": slug.current, year, client, agency, type, role, description, team, recognition,
   cover ${imageFields},
   content[] {
-    _type, _key, caption, heading, body, url, ratio, loop,
+    _type, _key, caption, heading, body, url, ratio, customWidth, customHeight, loop,
     image ${imageFields}, left ${imageFields}, right ${imageFields}
   }
 }`
