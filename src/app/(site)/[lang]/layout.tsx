@@ -11,7 +11,6 @@ import '../globals.css'
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans', display: 'swap' })
 const unbounded = Unbounded({ subsets: ['latin'], weight: ['500', '600', '700'], variable: '--font-display', display: 'swap' })
 
-export const dynamicParams = false
 export const revalidate = 60
 
 export function generateStaticParams() {
