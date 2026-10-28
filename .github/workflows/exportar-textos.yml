@@ -1,0 +1,24 @@
+# Exporta os textos publicados no Sanity para um arquivo JSON (só leitura).
+# Rode manualmente em Actions → "Exportar textos" → Run workflow.
+name: Exportar textos
+on: workflow_dispatch
+jobs:
+  exportar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Buscar textos no Sanity
+        run: |
+          Q='{
+            "settings": *[_id == "siteSettings"][0],
+            "order": *[_id == "projectOrder"][0].projects[]._ref,
+            "projects": *[_type == "project" && !(_id in path("drafts.**"))]{
+              _id, title, "slug": slug.current, year, client, agency, type, role, description, team, recognition,
+              content[]{ _type, caption, heading, body, url }
+            }
+          }'
+          curl -sS -G "https://cctrc9we.api.sanity.io/v2025-01-01/data/query/production" --data-urlencode "query=$Q" -o textos.json
+          head -c 300 textos.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: textos
+          path: textos.json
