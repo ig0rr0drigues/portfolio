@@ -65,6 +65,7 @@ export const project = defineType({
       type: 'number',
       group: 'info',
       description: 'Números menores aparecem primeiro. Projetos sem número vão para o fim, do mais recente ao mais antigo.',
+      hidden: true,
     }),
     defineField({
       name: 'content',
@@ -81,7 +82,6 @@ export const project = defineType({
     }),
   ],
   orderings: [
-    { title: 'Ordem no mosaico', name: 'orderAsc', by: [{ field: 'order', direction: 'asc' }] },
     { title: 'Ano, mais recente', name: 'yearDesc', by: [{ field: 'year', direction: 'desc' }] },
   ],
   preview: {

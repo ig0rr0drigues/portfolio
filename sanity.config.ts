@@ -21,6 +21,10 @@ export default defineConfig({
           .title('Conteúdo')
           .items([
             S.documentTypeListItem('project').title('Projetos'),
+            S.listItem()
+              .title('Ordem dos projetos')
+              .id('projectOrder')
+              .child(S.document().schemaType('projectOrder').documentId('projectOrder').title('Ordem dos projetos')),
             S.divider(),
             S.listItem()
               .title('Configurações do site')
@@ -31,7 +35,7 @@ export default defineConfig({
   ],
   tools: (prev) => [...prev, { name: 'manutencao', title: 'Manutenção', component: MaintenanceTool }],
   document: {
-    // As Configurações do site são um documento único: não aparecem no botão "novo".
-    newDocumentOptions: (prev) => prev.filter((t) => t.templateId !== 'siteSettings'),
+    // Configurações do site e Ordem dos projetos são documentos únicos: não aparecem no botão "novo".
+    newDocumentOptions: (prev) => prev.filter((t) => t.templateId !== 'siteSettings' && t.templateId !== 'projectOrder'),
   },
 })
