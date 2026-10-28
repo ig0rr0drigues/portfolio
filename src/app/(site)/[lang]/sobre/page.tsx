@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { getSettings } from '@/lib/data'
 import { Lines } from '@/components/RichText'
 import { isLang, L, paragraphs, ui, type Lang } from '@/lib/i18n'
+import { FluidText } from '@/components/FluidText'
 
 export const revalidate = 60
 
@@ -21,7 +22,9 @@ export default async function About({ params }: { params: Promise<{ lang: string
 
   return (
     <section className="wrap about">
-      <h1 className="about__lead reveal">{L(s?.aboutLead, lang)}</h1>
+      <h1 className="about__lead reveal">
+        <FluidText text={L(s?.aboutLead, lang)} radius={2.6} />
+      </h1>
       <div className="about__body reveal" style={{ '--d': '150ms' } as React.CSSProperties}>
         {body.map((p, i) => (
           <p key={i}>

@@ -3,6 +3,7 @@ import { L, ui, type Lang } from '@/lib/i18n'
 import type { Block, SanityImg } from '@/lib/types'
 import { Vimeo } from './Vimeo'
 import { pickRich, RichText } from './RichText'
+import { FluidText } from './FluidText'
 
 function Img({ img, alt, sizes, ratio, eager }: { img: SanityImg; alt: string; sizes: string; ratio?: number; eager?: boolean }) {
   if (!img?.url) return null
@@ -59,7 +60,11 @@ export function Blocks({ blocks, lang, title }: { blocks: Block[]; lang: Lang; t
             if (!heading && !body.length) return null
             return (
               <section key={b._key} className={`block-text wrap${heading ? '' : ' block-text--plain'}`}>
-                {heading && <h2 className="block-text__heading reveal">{heading}</h2>}
+                {heading && (
+                  <h2 className="block-text__heading reveal">
+                    <FluidText text={heading} radius={3} />
+                  </h2>
+                )}
                 <div className="block-text__body reveal" style={{ '--d': '120ms' } as React.CSSProperties}>
                   <RichText blocks={body} />
                 </div>

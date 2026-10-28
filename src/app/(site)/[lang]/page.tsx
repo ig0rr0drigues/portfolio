@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { getProjects, getSettings } from '@/lib/data'
 import { imageUrl, srcSet } from '@/lib/image'
 import { isLang, L, ui, type Lang } from '@/lib/i18n'
+import { FluidText } from '@/components/FluidText'
 
 export const revalidate = 60
 
@@ -20,11 +21,14 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
       <section className="wrap hero">
         <h1 className="hero__name">
           <span className="rise">
-            <span>Igor</span>
+            <span>
+              <FluidText text="Igor" />
+            </span>
           </span>
           <span className="rise">
             <span style={{ '--d': '90ms' } as React.CSSProperties}>
-              Rodrigues<i className="hero__dot" aria-hidden="true" />
+              <FluidText text="Rodrigues" />
+              <i className="hero__dot" aria-hidden="true" />
             </span>
           </span>
         </h1>

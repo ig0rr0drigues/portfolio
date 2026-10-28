@@ -135,7 +135,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--laranja); outli
 .vimeo iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 .caption { margin: 0; padding-block: var(--space-3); font-size: 13px; line-height: 18px; color: var(--tinta-suave); background: var(--papel); }
 .next { display: block; text-decoration: none; padding-block: clamp(48px, 8vw, 120px); border-top: 1px solid var(--linha); }
-.next__title { display: inline-block; margin-top: var(--space-3); font-family: var(--font-display), 'Arial Black', sans-serif; font-weight: 700; font-size: clamp(36px, 7vw, 112px); line-height: 0.95; letter-spacing: -0.035em; background-image: linear-gradient(var(--laranja), var(--laranja)); background-size: 0 4px; background-position: 0 100%; background-repeat: no-repeat; padding-bottom: 6px; transition: background-size 0.45s var(--ease), font-weight 0.6s var(--ease); }
+.next__title { display: inline-block; margin-top: var(--space-3); font-family: var(--font-display), 'Arial Black', sans-serif; font-weight: 700; font-size: clamp(36px, 7vw, 112px); line-height: 0.95; letter-spacing: -0.035em; background-image: linear-gradient(var(--laranja), var(--laranja)); background-size: 0 4px; background-position: 0 100%; background-repeat: no-repeat; padding-bottom: 6px; transition: background-size 0.45s var(--ease); }
 .next:hover .next__title, .next:focus-visible .next__title { background-size: 100% 4px; }
 
 /* Sobre */
@@ -199,26 +199,11 @@ html.has-reveal .card.reveal--media.is-in img { transition: transform 0.8s var(-
 html.has-reveal .card.reveal--media.is-in:hover img { transform: scale(1.03); }
 
 /*
-  Peso que respira: títulos ficam mais leves, de forma contínua, quando o mouse passa por cima.
-  Funciona porque a fonte de títulos é variável. Só em telas com mouse (hover).
-  Nos títulos grandes, cada linha reage separadamente.
+  Peso que respira, letra por letra (FluidText.tsx): o peso de cada letra é definido pelo script
+  conforme a distância do mouse. Aqui só garantimos que as palavras não quebrem no meio.
 */
-:root { --peso-leve: 300; --peso-tempo: 0.6s; }
-.hero__name .rise > span,
-.project-title .rise > span,
-.contact__lead .rise > span,
-.header__name,
-.block-text__heading,
-.about__lead { transition: font-weight var(--peso-tempo) var(--ease); }
-@media (hover: hover) {
-  .hero__name .rise > span:hover,
-  .project-title .rise > span:hover,
-  .contact__lead .rise > span:hover,
-  .next:hover .next__title,
-  .header__name:hover,
-  .block-text__heading:hover,
-  .about__lead:hover { font-weight: var(--peso-leve); }
-}
+.fluid__word { display: inline-block; white-space: nowrap; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
 @media (max-width: 900px) {
   .project-desc, .credits, .about__lead, .about__body, .about__facts, .block-text__heading, .block-text__body, .block-text--plain .block-text__body { grid-column: 1 / -1; }

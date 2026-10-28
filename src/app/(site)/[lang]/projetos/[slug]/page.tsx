@@ -6,6 +6,7 @@ import { getProject, getProjects } from '@/lib/data'
 import { imageUrl } from '@/lib/image'
 import { Lines } from '@/components/RichText'
 import { isLang, L, paragraphs, ui, type Lang } from '@/lib/i18n'
+import { FluidText } from '@/components/FluidText'
 
 export const revalidate = 60
 // Projetos novos publicados no painel ganham página sem precisar refazer o site.
@@ -53,7 +54,9 @@ export default async function ProjectPage({ params }: Props) {
         </Link>
         <h1 className="project-title">
           <span className="rise">
-            <span>{p.title}</span>
+            <span>
+              <FluidText text={p.title} />
+            </span>
           </span>
         </h1>
         {(type || p.year) && <p className="project-type reveal" style={{ '--d': '250ms' } as React.CSSProperties}>{[type, p.year].filter(Boolean).join(' · ')}</p>}
@@ -118,7 +121,9 @@ export default async function ProjectPage({ params }: Props) {
         <Link className="wrap next reveal" href={`/${lang}/projetos/${next.slug}`}>
           <span className="rotulo">{t.next}</span>
           <br />
-          <span className="next__title">{next.title} →</span>
+          <span className="next__title">
+            <FluidText text={next.title} /> →
+          </span>
         </Link>
       )}
     </article>

@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { CopyEmail } from '@/components/CopyEmail'
 import { getSettings } from '@/lib/data'
 import { isLang, ui, type Lang } from '@/lib/i18n'
+import { FluidText } from '@/components/FluidText'
 
 export const revalidate = 60
 
@@ -21,7 +22,8 @@ export default async function Contact({ params }: { params: Promise<{ lang: stri
       <h1 className="contact__lead">
         {t.contactLead.map((w, i) => (
           <span key={w} className="rise">
-            <span style={{ '--d': `${i * 90}ms` } as React.CSSProperties}>{w}</span>
+            <span style={{ '--d': `${i * 90}ms` } as React.CSSProperties}><FluidText text={w} />
+            </span>
           </span>
         ))}
       </h1>

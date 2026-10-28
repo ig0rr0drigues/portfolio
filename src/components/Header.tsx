@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { ui, type Lang } from '@/lib/i18n'
+import { FluidText } from './FluidText'
 
 export function Header({ lang }: { lang: Lang }) {
   const pathname = usePathname() || `/${lang}`
@@ -20,7 +21,7 @@ export function Header({ lang }: { lang: Lang }) {
     <div className="wrap">
       <header className="header">
         <Link className="header__name" href={`/${lang}`}>
-          Igor Rodrigues
+          <FluidText text="Igor Rodrigues" radius={3} />
         </Link>
         <nav className="nav" aria-label={lang === 'pt' ? 'Principal' : 'Main'}>
           {items.map((i) => (
