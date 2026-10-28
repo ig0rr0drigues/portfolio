@@ -38,7 +38,7 @@ export function Blocks({ blocks, lang, title }: { blocks: Block[]; lang: Lang; t
           case 'imageBlock':
             n++
             return (
-              <figure key={b._key} className="block-image">
+              <figure key={b._key} className="block-image reveal reveal--media">
                 <Img img={b.image} alt={`${title} — ${t.image} ${n}`} sizes="100vw" eager={i === 0} />
                 <Caption text={L(b.caption, lang)} />
               </figure>
@@ -47,7 +47,7 @@ export function Blocks({ blocks, lang, title }: { blocks: Block[]; lang: Lang; t
             const r = parseRatio(b.ratio, 4 / 5)
             n += 2
             return (
-              <div key={b._key} className="block-pair">
+              <div key={b._key} className="block-pair reveal reveal--media">
                 <Img img={b.left} alt={`${title} — ${t.image} ${n - 1}`} sizes="(max-width: 600px) 100vw, 50vw" ratio={r} />
                 <Img img={b.right} alt={`${title} — ${t.image} ${n}`} sizes="(max-width: 600px) 100vw, 50vw" ratio={r} />
               </div>
@@ -59,8 +59,8 @@ export function Blocks({ blocks, lang, title }: { blocks: Block[]; lang: Lang; t
             if (!heading && !body.length) return null
             return (
               <section key={b._key} className={`block-text wrap${heading ? '' : ' block-text--plain'}`}>
-                {heading && <h2 className="block-text__heading">{heading}</h2>}
-                <div className="block-text__body">
+                {heading && <h2 className="block-text__heading reveal">{heading}</h2>}
+                <div className="block-text__body reveal" style={{ '--d': '120ms' } as React.CSSProperties}>
                   <RichText blocks={body} />
                 </div>
               </section>
@@ -69,7 +69,7 @@ export function Blocks({ blocks, lang, title }: { blocks: Block[]; lang: Lang; t
           case 'vimeoBlock':
             if (!b.url) return null
             return (
-              <figure key={b._key} className="block-video">
+              <figure key={b._key} className="block-video reveal reveal--media">
                 <Vimeo url={b.url} ratio={b.ratio} customWidth={b.customWidth} customHeight={b.customHeight} loop={b.loop} title={L(b.caption, lang) || `${title} — ${t.video}`} />
                 <Caption text={L(b.caption, lang)} />
               </figure>

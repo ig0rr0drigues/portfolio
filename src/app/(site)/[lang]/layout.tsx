@@ -3,6 +3,7 @@ import { Inter, Unbounded } from 'next/font/google'
 import { notFound } from 'next/navigation'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
+import { revealBootScript, ScrollReveal } from '@/components/ScrollReveal'
 import { getSettings } from '@/lib/data'
 import { isLang, L, langs, type Lang } from '@/lib/i18n'
 import '../globals.css'
@@ -45,8 +46,12 @@ export default async function SiteLayout({ children, params }: { children: React
   const lang = raw as Lang
   const settings = await getSettings()
   return (
-    <html lang={lang === 'pt' ? 'pt-BR' : 'en'} className={`${inter.variable} ${unbounded.variable}`}>
+    <html lang={lang === 'pt' ? 'pt-BR' : 'en'} className={`${inter.variable} ${unbounded.variable}`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: revealBootScript }} />
+      </head>
       <body>
+        <ScrollReveal />
         <Header lang={lang} />
         <main>{children}</main>
         <Footer lang={lang} settings={settings} />

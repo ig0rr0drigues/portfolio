@@ -19,19 +19,21 @@ export default async function Contact({ params }: { params: Promise<{ lang: stri
   return (
     <section className="wrap contact">
       <h1 className="contact__lead">
-        {t.contactLead.map((w) => (
-          <span key={w}>{w}</span>
+        {t.contactLead.map((w, i) => (
+          <span key={w} className="rise">
+            <span style={{ '--d': `${i * 90}ms` } as React.CSSProperties}>{w}</span>
+          </span>
         ))}
       </h1>
       {s?.email && (
-        <div className="email-row">
+        <div className="email-row reveal" style={{ '--d': '300ms' } as React.CSSProperties}>
           <a className="email" href={`mailto:${s.email}`}>
             {s.email}
           </a>
           <CopyEmail email={s.email} label={t.copy} done={t.copied} />
         </div>
       )}
-      <ul className="socials">
+      <ul className="socials reveal" style={{ '--d': '420ms' } as React.CSSProperties}>
         {s?.linkedin && (
           <li>
             <a href={s.linkedin} target="_blank" rel="noopener noreferrer">

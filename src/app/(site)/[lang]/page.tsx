@@ -19,13 +19,17 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
     <>
       <section className="wrap hero">
         <h1 className="hero__name">
-          <span>Igor</span>
-          <span>
-            Rodrigues<i className="hero__dot" aria-hidden="true" />
+          <span className="rise">
+            <span>Igor</span>
+          </span>
+          <span className="rise">
+            <span style={{ '--d': '90ms' } as React.CSSProperties}>
+              Rodrigues<i className="hero__dot" aria-hidden="true" />
+            </span>
           </span>
         </h1>
         {(role || intro) && (
-          <p className="hero__intro">
+          <p className="hero__intro reveal" style={{ '--d': '350ms' } as React.CSSProperties}>
             {role && <strong>{role}. </strong>}
             {intro}
           </p>
@@ -37,7 +41,12 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
       ) : (
         <section className="grid" style={{ '--cols': cols } as React.CSSProperties} aria-label={t.work}>
           {projects.map((p, i) => (
-            <Link key={p.slug} className="card" href={`/${lang}/projetos/${p.slug}`}>
+            <Link
+              key={p.slug}
+              className="card reveal reveal--media"
+              style={{ '--d': `${(i % cols) * 120}ms` } as React.CSSProperties}
+              href={`/${lang}/projetos/${p.slug}`}
+            >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={imageUrl(p.cover, 900, 4 / 5)}

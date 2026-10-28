@@ -51,10 +51,14 @@ export default async function ProjectPage({ params }: Props) {
         <Link className="back" href={`/${lang}`}>
           <span aria-hidden="true">←</span> {t.back}
         </Link>
-        <h1 className="project-title">{p.title}</h1>
-        {(type || p.year) && <p className="project-type">{[type, p.year].filter(Boolean).join(' · ')}</p>}
+        <h1 className="project-title">
+          <span className="rise">
+            <span>{p.title}</span>
+          </span>
+        </h1>
+        {(type || p.year) && <p className="project-type reveal" style={{ '--d': '250ms' } as React.CSSProperties}>{[type, p.year].filter(Boolean).join(' · ')}</p>}
         {desc.length > 0 && (
-          <div className="project-desc">
+          <div className="project-desc reveal" style={{ '--d': '350ms' } as React.CSSProperties}>
             {desc.map((d, j) => (
               <p key={j}>
                 <Lines text={d} />
@@ -62,7 +66,7 @@ export default async function ProjectPage({ params }: Props) {
             ))}
           </div>
         )}
-        <dl className="credits">
+        <dl className="credits reveal" style={{ '--d': '450ms' } as React.CSSProperties}>
           {role && (
             <div className="wide">
               <dt className="rotulo">{t.role}</dt>
@@ -111,7 +115,7 @@ export default async function ProjectPage({ params }: Props) {
       <Blocks blocks={p.content || []} lang={lang} title={p.title} />
 
       {next && next.slug !== p.slug && (
-        <Link className="wrap next" href={`/${lang}/projetos/${next.slug}`}>
+        <Link className="wrap next reveal" href={`/${lang}/projetos/${next.slug}`}>
           <span className="rotulo">{t.next}</span>
           <br />
           <span className="next__title">{next.title} →</span>

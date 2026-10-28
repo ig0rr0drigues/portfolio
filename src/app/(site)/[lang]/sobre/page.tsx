@@ -21,15 +21,15 @@ export default async function About({ params }: { params: Promise<{ lang: string
 
   return (
     <section className="wrap about">
-      <h1 className="about__lead">{L(s?.aboutLead, lang)}</h1>
-      <div className="about__body">
+      <h1 className="about__lead reveal">{L(s?.aboutLead, lang)}</h1>
+      <div className="about__body reveal" style={{ '--d': '150ms' } as React.CSSProperties}>
         {body.map((p, i) => (
           <p key={i}>
             <Lines text={p} />
           </p>
         ))}
       </div>
-      <dl className="about__facts">
+      <dl className="about__facts reveal" style={{ '--d': '280ms' } as React.CSSProperties}>
         {s?.tools && s.tools.length > 0 && (
           <div>
             <dt className="rotulo">{t.tools}</dt>
