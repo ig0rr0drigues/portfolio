@@ -2,6 +2,8 @@
 # Rode manualmente em Actions → "Exportar textos" → Run workflow.
 name: Exportar textos
 on: workflow_dispatch
+permissions:
+  contents: write
 jobs:
   exportar:
     runs-on: ubuntu-latest
@@ -18,7 +20,9 @@ jobs:
           }'
           curl -sS -G "https://cctrc9we.api.sanity.io/v2025-01-01/data/query/production" --data-urlencode "query=$Q" -o textos.json
           head -c 300 textos.json
-      - uses: actions/upload-artifact@v4
-        with:
-          name: textos
-          path: textos.json
+      - name: Guardar no ramo "exportacao-textos" (não afeta o site)
+        run: |
+          git init -q out && cd out
+          git config user.name "github-actions" && git config user.email "actions@github.com"
+          cp ../textos.json . && git add textos.json && git commit -qm "Textos exportados"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" HEAD:exportacao-textos
