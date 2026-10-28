@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter, Unbounded } from 'next/font/google'
+import { Inter, Space_Grotesk } from 'next/font/google'
 import { notFound } from 'next/navigation'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
@@ -8,9 +8,10 @@ import { getSettings } from '@/lib/data'
 import { isLang, L, langs, type Lang } from '@/lib/i18n'
 import '../globals.css'
 
-// Fontes: Inter para textos, Unbounded no lugar da PP Neue Machina (até a licença ser comprada).
+// Fontes: Inter para textos e Space Grotesk nos títulos (teste no lugar da Unbounded).
+// A Space Grotesk é variável (pesos 300 a 700 num arquivo só), o que permite a animação de peso no hover.
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans', display: 'swap' })
-const unbounded = Unbounded({ subsets: ['latin'], weight: ['500', '600', '700'], variable: '--font-display', display: 'swap' })
+const display = Space_Grotesk({ subsets: ['latin'], variable: '--font-display', display: 'swap' })
 
 export const revalidate = 60
 
@@ -46,7 +47,7 @@ export default async function SiteLayout({ children, params }: { children: React
   const lang = raw as Lang
   const settings = await getSettings()
   return (
-    <html lang={lang === 'pt' ? 'pt-BR' : 'en'} className={`${inter.variable} ${unbounded.variable}`} suppressHydrationWarning>
+    <html lang={lang === 'pt' ? 'pt-BR' : 'en'} className={`${inter.variable} ${display.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: revealBootScript }} />
       </head>
