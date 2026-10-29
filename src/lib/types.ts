@@ -15,6 +15,7 @@ export type ProjectCard = {
   year?: number
   type?: Localized
   cover: SanityImg
+  coverVideo?: string | null
 }
 
 export type Block =

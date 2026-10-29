@@ -95,6 +95,12 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--laranja); outli
 .card:hover .card__info, .card:focus-visible .card__info { opacity: 1; transform: none; }
 .card:hover img { transform: scale(1.03); }
 .card:focus-visible { outline: none; box-shadow: inset 0 0 0 3px var(--laranja); }
+/* Vídeo de capa no hover: entra por cima da imagem só quando já está tocando (CardVideo.tsx). */
+.card__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.45s ease, transform 0.8s var(--ease); pointer-events: none; }
+.card.is-playing .card__video { opacity: 1; }
+.card:hover .card__video { transform: scale(1.03); }
+/* Com vídeo, o véu escurece só a base, para o vídeo aparecer inteiro. */
+.card--video .card__veil { background: linear-gradient(to top, var(--veu), transparent 55%); }
 @media (hover: none) {
   .card__veil { opacity: 1; background: linear-gradient(to top, var(--veu), transparent 50%); }
   .card__info { opacity: 1; transform: none; }

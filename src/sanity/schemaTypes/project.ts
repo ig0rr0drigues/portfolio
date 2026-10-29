@@ -28,6 +28,16 @@ export const project = defineType({
       options: { hotspot: true },
       validation: (r) => r.required(),
     }),
+    defineField({
+      name: 'coverVideo',
+      title: 'Vídeo de capa (hover) — opcional',
+      type: 'file',
+      group: 'info',
+      description:
+        'Toca no lugar da capa quando o mouse passa pelo card na home. Use um MP4 curto e sem som: ' +
+        'de 4 a 10 segundos, vertical 4:5 (ex.: 1080 × 1350), até uns 8 MB. Se ficar vazio, o card mostra só a imagem.',
+      options: { accept: 'video/mp4,video/webm' },
+    }),
     defineField({ name: 'type', title: 'Tipo', type: 'localeString', group: 'info', description: 'Ex.: Campanha, Branding, Editorial.' }),
     defineField({ name: 'year', title: 'Ano', type: 'number', group: 'info', validation: (r) => r.integer().min(1990).max(2100) }),
     defineField({ name: 'client', title: 'Cliente', type: 'string', group: 'info' }),
