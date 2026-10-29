@@ -49,6 +49,7 @@ export const ui = {
     mediaPause: 'Som ligado · clique para pausar',
     mediaResume: 'Clique para continuar',
     photoAlt: 'Foto de Igor Rodrigues',
+    toTop: 'Voltar ao topo',
   },
   en: {
     work: 'Work',
@@ -82,5 +83,6 @@ export const ui = {
     mediaPause: 'Sound on · click to pause',
     mediaResume: 'Click to resume',
     photoAlt: 'Photo of Igor Rodrigues',
+    toTop: 'Back to top',
   },
 } satisfies Record<Lang, Record<string, string | string[]>>

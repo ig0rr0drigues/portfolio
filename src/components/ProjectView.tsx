@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { BackToTop } from '@/components/BackToTop'
 import { Blocks } from '@/components/Blocks'
 import { FluidText } from '@/components/FluidText'
 import { Lines } from '@/components/RichText'
@@ -109,6 +110,7 @@ export function ProjectView({ p, all, lang, basePath, backHref, backLabel, nextL
           </span>
         </Link>
       )}
+      <BackToTop label={t.toTop} />
     </article>
   )
 }
