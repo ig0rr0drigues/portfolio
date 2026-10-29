@@ -99,6 +99,9 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--laranja); outli
 .card__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.45s ease, transform 0.8s var(--ease); pointer-events: none; }
 .card.is-playing .card__video { opacity: 1; }
 .card:hover .card__video { transform: scale(1.03); }
+/* Vimeo: o player é ampliado e centralizado para cobrir o card 4:5 (--vr = proporção do vídeo). */
+.card__vimeo { overflow: hidden; }
+.card__vimeo iframe { position: absolute; top: 50%; left: 50%; border: 0; transform: translate(-50%, -50%); width: max(100%, calc(100% * var(--vr, 1.7778) / 0.8)); height: max(100%, calc(100% * 0.8 / var(--vr, 1.7778))); pointer-events: none; }
 /* Com vídeo, o véu escurece só a base, para o vídeo aparecer inteiro. */
 .card--video .card__veil { background: linear-gradient(to top, var(--veu), transparent 55%); }
 @media (hover: none) {

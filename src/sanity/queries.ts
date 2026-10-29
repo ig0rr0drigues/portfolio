@@ -2,7 +2,7 @@
 
 const imageFields = `{ hotspot, "url": asset->url, "w": asset->metadata.dimensions.width, "h": asset->metadata.dimensions.height }`
 
-const cardFields = `_id, title, "slug": slug.current, year, type, cover ${imageFields}, "coverVideo": coverVideo.asset->url`
+const cardFields = `_id, title, "slug": slug.current, year, type, cover ${imageFields}, "coverVideo": coverVideo.asset->url, coverVimeo`
 
 // Primeiro os projetos na ordem da lista "Ordem dos projetos";
 // depois os que não estão na lista, do mais recente ao mais antigo.

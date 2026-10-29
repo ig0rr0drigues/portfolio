@@ -30,13 +30,24 @@ export const project = defineType({
     }),
     defineField({
       name: 'coverVideo',
-      title: 'Vídeo de capa (hover) — opcional',
+      title: 'Vídeo de capa (hover): arquivo — opcional',
       type: 'file',
       group: 'info',
       description:
-        'Toca no lugar da capa quando o mouse passa pelo card na home. Use um MP4 curto e sem som: ' +
-        'de 4 a 10 segundos, vertical 4:5 (ex.: 1080 × 1350), até uns 8 MB. Se ficar vazio, o card mostra só a imagem.',
+        'Toca no lugar da capa quando o mouse passa pelo card na home. É a opção mais rápida. Use um MP4 curto e sem som: ' +
+        'de 4 a 10 segundos, vertical 4:5 (ex.: 1080 × 1350), até uns 8 MB. Se preferir, use o link do Vimeo no campo abaixo.',
       options: { accept: 'video/mp4,video/webm' },
+    }),
+    defineField({
+      name: 'coverVimeo',
+      title: 'Vídeo de capa (hover): link do Vimeo — opcional',
+      type: 'url',
+      group: 'info',
+      description:
+        'Alternativa ao arquivo: cole o link do vídeo no Vimeo. O vídeo é recortado para preencher o card. ' +
+        'Se o arquivo acima também estiver preenchido, o site usa o arquivo.',
+      validation: (r) =>
+        r.custom((value) => (!value || /vimeo\.com\/(?:.*\/)?\d+/.test(String(value)) ? true : 'Esse link não parece ser do Vimeo.')),
     }),
     defineField({ name: 'type', title: 'Tipo', type: 'localeString', group: 'info', description: 'Ex.: Campanha, Branding, Editorial.' }),
     defineField({ name: 'year', title: 'Ano', type: 'number', group: 'info', validation: (r) => r.integer().min(1990).max(2100) }),

@@ -4,6 +4,7 @@ import { imageUrl, srcSet } from '@/lib/image'
 import { isLang, L, ui, type Lang } from '@/lib/i18n'
 import { FluidText } from '@/components/FluidText'
 import { CardVideo } from '@/components/CardVideo'
+import { CardVimeo } from '@/components/CardVimeo'
 
 export const revalidate = 60
 
@@ -48,7 +49,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
           {projects.map((p, i) => (
             <Link
               key={p.slug}
-              className={`card reveal reveal--media${p.coverVideo ? ' card--video' : ''}`}
+              className={`card reveal reveal--media${p.coverVideo || p.coverVimeo ? ' card--video' : ''}`}
               style={{ '--d': `${(i % cols) * 120}ms` } as React.CSSProperties}
               href={`/${lang}/projetos/${p.slug}`}
             >
@@ -62,7 +63,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
                 alt={p.title}
                 loading={i < 2 ? 'eager' : 'lazy'}
               />
-              {p.coverVideo && <CardVideo src={p.coverVideo} />}
+              {p.coverVideo ? <CardVideo src={p.coverVideo} /> : p.coverVimeo ? <CardVimeo url={p.coverVimeo} /> : null}
               <span className="card__veil" />
               <span className="card__info">
                 <span className="card__title" role="heading" aria-level={2}>

@@ -16,6 +16,7 @@ export type ProjectCard = {
   type?: Localized
   cover: SanityImg
   coverVideo?: string | null
+  coverVimeo?: string | null
 }
 
 export type Block =
