@@ -62,11 +62,11 @@ export function CardVimeo({ url }: { url: string }) {
       if (!data?.event) return
       if (data.event === 'ready') {
         ready = true
-        ;['play', 'playing', 'timeupdate'].forEach((ev) => post('addEventListener', ev))
+        ;['play', 'playing', 'timeupdate', 'playProgress'].forEach((ev) => post('addEventListener', ev))
         post('setVolume', 0)
         if (hovering) post('play')
         else post('pause')
-      } else if ((data.event === 'playing' || data.event === 'timeupdate') && hovering) {
+      } else if ((data.event === 'playing' || data.event === 'timeupdate' || data.event === 'playProgress') && hovering) {
         card.classList.add('is-playing')
       }
     }
