@@ -12,7 +12,15 @@ export default defineConfig({
   basePath: '/studio',
   projectId,
   dataset,
-  schema: { types: schemaTypes },
+  schema: {
+    types: schemaTypes,
+    // Modelos de criação: um projeto novo já nasce em Trabalhos ou no Arquivo, conforme a lista.
+    templates: (prev) => [
+      ...prev.filter((t) => t.schemaType !== 'project'),
+      { id: 'project-work', title: 'Projeto (Trabalhos)', schemaType: 'project', value: { section: 'work' } },
+      { id: 'project-archive', title: 'Peça do Arquivo', schemaType: 'project', value: { section: 'archive' } },
+    ],
+  },
   plugins: [
     structureTool({
       title: 'Conteúdo',
@@ -20,11 +28,35 @@ export default defineConfig({
         S.list()
           .title('Conteúdo')
           .items([
-            S.documentTypeListItem('project').title('Projetos'),
+            S.listItem()
+              .title('Projetos')
+              .id('projetos')
+              .child(
+                S.documentList()
+                  .title('Projetos')
+                  .schemaType('project')
+                  .filter('_type == "project" && coalesce(section, "work") == "work"')
+                  .initialValueTemplates([S.initialValueTemplateItem('project-work')])
+              ),
+            S.listItem()
+              .title('Arquivo')
+              .id('arquivo')
+              .child(
+                S.documentList()
+                  .title('Arquivo')
+                  .schemaType('project')
+                  .filter('_type == "project" && section == "archive"')
+                  .initialValueTemplates([S.initialValueTemplateItem('project-archive')])
+              ),
+            S.divider(),
             S.listItem()
               .title('Ordem dos projetos')
               .id('projectOrder')
               .child(S.document().schemaType('projectOrder').documentId('projectOrder').title('Ordem dos projetos')),
+            S.listItem()
+              .title('Ordem do arquivo')
+              .id('archiveOrder')
+              .child(S.document().schemaType('archiveOrder').documentId('archiveOrder').title('Ordem do arquivo')),
             S.divider(),
             S.listItem()
               .title('Configurações do site')
@@ -36,6 +68,6 @@ export default defineConfig({
   tools: (prev) => [...prev, { name: 'manutencao', title: 'Manutenção', component: MaintenanceTool }],
   document: {
     // Configurações do site e Ordem dos projetos são documentos únicos: não aparecem no botão "novo".
-    newDocumentOptions: (prev) => prev.filter((t) => t.templateId !== 'siteSettings' && t.templateId !== 'projectOrder'),
+    newDocumentOptions: (prev) => prev.filter((t) => !['siteSettings', 'projectOrder', 'archiveOrder'].includes(t.templateId)),
   },
 })

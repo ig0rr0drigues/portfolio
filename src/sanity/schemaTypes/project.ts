@@ -11,6 +11,22 @@ export const project = defineType({
   fields: [
     defineField({ name: 'title', title: 'Título', type: 'string', group: 'info', validation: (r) => r.required() }),
     defineField({
+      name: 'section',
+      title: 'Onde aparece',
+      type: 'string',
+      group: 'info',
+      description: 'Trabalhos são os projetos principais (home). Arquivo é para peças pontuais. Mude para mover entre os dois e depois ajuste a lista de ordem correspondente.',
+      options: {
+        list: [
+          { title: 'Trabalhos', value: 'work' },
+          { title: 'Arquivo', value: 'archive' },
+        ],
+        layout: 'radio',
+        direction: 'horizontal',
+      },
+      initialValue: 'work',
+    }),
+    defineField({
       name: 'slug',
       title: 'Endereço da página',
       type: 'slug',

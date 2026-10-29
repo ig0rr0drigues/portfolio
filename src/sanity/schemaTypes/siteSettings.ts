@@ -8,6 +8,7 @@ export const siteSettings = defineType({
   groups: [
     { name: 'home', title: 'Home', default: true },
     { name: 'about', title: 'Sobre' },
+    { name: 'archive', title: 'Arquivo' },
     { name: 'contact', title: 'Contato' },
   ],
   fields: [
@@ -45,6 +46,7 @@ export const siteSettings = defineType({
     defineField({ name: 'tools', title: 'Ferramentas', type: 'array', group: 'about', of: [defineArrayMember({ type: 'string' })] }),
     defineField({ name: 'education', title: 'Formação', type: 'array', group: 'about', of: [defineArrayMember({ type: 'localeString' })] }),
     defineField({ name: 'offClock', title: 'Fora do estúdio', type: 'localeString', group: 'about' }),
+    defineField({ name: 'archiveIntro', title: 'Apresentação do Arquivo', type: 'localeText', group: 'archive', description: 'Uma ou duas frases no topo da página Arquivo (opcional).' }),
     defineField({ name: 'email', title: 'E-mail', type: 'string', group: 'contact' }),
     defineField({ name: 'linkedin', title: 'LinkedIn (link)', type: 'url', group: 'contact' }),
     defineField({ name: 'instagram', title: 'Instagram (link)', type: 'url', group: 'contact' }),

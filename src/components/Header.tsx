@@ -9,10 +9,11 @@ export function Header({ lang }: { lang: Lang }) {
   const pathname = usePathname() || `/${lang}`
   const t = ui[lang]
   const rest = pathname.replace(/^\/(pt|en)/, '')
-  const section = rest.startsWith('/sobre') ? 'sobre' : rest.startsWith('/contato') ? 'contato' : 'trabalhos'
+  const section = rest.startsWith('/arquivo') ? 'arquivo' : rest.startsWith('/sobre') ? 'sobre' : rest.startsWith('/contato') ? 'contato' : 'trabalhos'
 
   const items = [
     { key: 'trabalhos', href: `/${lang}`, label: t.work },
+    { key: 'arquivo', href: `/${lang}/arquivo`, label: t.archive },
     { key: 'sobre', href: `/${lang}/sobre`, label: t.about },
     { key: 'contato', href: `/${lang}/contato`, label: t.contact },
   ]

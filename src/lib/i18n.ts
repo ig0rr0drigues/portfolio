@@ -19,6 +19,10 @@ export function paragraphs(text: string): string[] {
 export const ui = {
   pt: {
     work: 'Trabalhos',
+    archive: 'Arquivo',
+    archiveBack: 'Todo o arquivo',
+    archiveNext: 'Próxima peça',
+    archiveEmpty: 'Nada no arquivo ainda.',
     about: 'Sobre',
     contact: 'Contato',
     back: 'Todos os trabalhos',
@@ -48,6 +52,10 @@ export const ui = {
   },
   en: {
     work: 'Work',
+    archive: 'Archive',
+    archiveBack: 'Full archive',
+    archiveNext: 'Next piece',
+    archiveEmpty: 'Nothing in the archive yet.',
     about: 'About',
     contact: 'Contact',
     back: 'All work',

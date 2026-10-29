@@ -17,6 +17,7 @@ export type ProjectCard = {
   cover: SanityImg
   coverVideo?: string | null
   coverVimeo?: string | null
+  section?: 'work' | 'archive'
 }
 
 export type Block =
@@ -43,6 +44,7 @@ export type Settings = {
   aboutPhoto?: SanityImg
   aboutVideo?: string | null
   aboutVimeo?: string | null
+  archiveIntro?: Localized
   tools?: string[]
   education?: Localized[]
   offClock?: Localized

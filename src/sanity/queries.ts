@@ -2,13 +2,14 @@
 
 const imageFields = `{ hotspot, "url": asset->url, "w": asset->metadata.dimensions.width, "h": asset->metadata.dimensions.height }`
 
-const cardFields = `_id, title, "slug": slug.current, year, type, cover ${imageFields}, "coverVideo": coverVideo.asset->url, coverVimeo`
+const cardFields = `_id, title, "slug": slug.current, year, type, "section": coalesce(section, "work"), cover ${imageFields}, "coverVideo": coverVideo.asset->url, coverVimeo`
 
-// Primeiro os projetos na ordem da lista "Ordem dos projetos";
-// depois os que não estão na lista, do mais recente ao mais antigo.
-export const projectsQuery = `{
-  "ordered": *[_id == "projectOrder"][0].projects[]->{ ${cardFields} },
-  "rest": *[_type == "project" && defined(slug.current) && !(_id in coalesce(*[_id == "projectOrder"][0].projects[]._ref, []))]
+// Peças de uma seção ($section: "work" ou "archive"):
+// primeiro na ordem da lista de ordem ($orderId), depois as que não estão na lista, da mais recente à mais antiga.
+export const sectionQuery = `{
+  "ordered": *[_id == $orderId][0].projects[]->{ ${cardFields} },
+  "rest": *[_type == "project" && defined(slug.current) && coalesce(section, "work") == $section
+    && !(_id in coalesce(*[_id == $orderId][0].projects[]._ref, []))]
     | order(coalesce(order, 9999) asc, year desc) { ${cardFields} }
 }`
 
