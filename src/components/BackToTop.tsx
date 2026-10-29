@@ -11,19 +11,14 @@ export function BackToTop({ label }: { label: string }) {
   const [show, setShow] = useState(false)
 
   useEffect(() => {
-    let raf = 0
-    const check = () => {
-      raf = 0
-      setShow(window.scrollY > window.innerHeight * 1.2)
-    }
-    const onScroll = () => {
-      if (!raf) raf = requestAnimationFrame(check)
-    }
+    // Checagem simples a cada rolagem (o React ignora quando o valor não muda).
+    const check = () => setShow(window.scrollY > window.innerHeight * 1.2)
     check()
-    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('scroll', check, { passive: true })
+    window.addEventListener('resize', check)
     return () => {
-      window.removeEventListener('scroll', onScroll)
-      cancelAnimationFrame(raf)
+      window.removeEventListener('scroll', check)
+      window.removeEventListener('resize', check)
     }
   }, [])
 
