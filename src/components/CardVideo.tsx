@@ -1,12 +1,13 @@
 'use client'
 
+import { bindCardTrigger, videoMode } from '@/lib/cardTrigger'
 import { useEffect, useRef } from 'react'
 
 /*
   Vídeo de capa do card do mosaico: aparece por cima da imagem enquanto o mouse está no card.
   - Começa a baixar quando o card se aproxima da tela, para já estar pronto no hover.
   - Só aparece quando o vídeo de fato começou a tocar (sem quadro preto).
-  - Desligado em telas de toque e para quem prefere menos movimento: fica a capa estática.
+  - Com mouse toca no hover; no celular, quando o card passa pelo centro da tela (cardTrigger.ts).
 */
 export function CardVideo({ src }: { src: string }) {
   const ref = useRef<HTMLVideoElement>(null)
@@ -15,8 +16,9 @@ export function CardVideo({ src }: { src: string }) {
     const video: HTMLVideoElement | null = ref.current
     const card = video?.closest('.card') as HTMLElement | null
     if (!video || !card) return
-    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    // Com mouse: toca no hover. No celular: toca quando o card passa pelo centro da tela.
+    const mode = videoMode()
+    if (!mode) return
 
     let hovering = false
 
@@ -53,17 +55,11 @@ export function CardVideo({ src }: { src: string }) {
     }
 
     video.addEventListener('playing', onPlaying)
-    card.addEventListener('pointerenter', enter)
-    card.addEventListener('pointerleave', leave)
-    card.addEventListener('focus', enter)
-    card.addEventListener('blur', leave)
+    const unbind = bindCardTrigger(card, enter, leave, mode)
     return () => {
       io.disconnect()
       video.removeEventListener('playing', onPlaying)
-      card.removeEventListener('pointerenter', enter)
-      card.removeEventListener('pointerleave', leave)
-      card.removeEventListener('focus', enter)
-      card.removeEventListener('blur', leave)
+      unbind()
     }
   }, [src])
 

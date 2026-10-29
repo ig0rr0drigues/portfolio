@@ -1,5 +1,6 @@
 'use client'
 
+import { bindCardTrigger, videoMode } from '@/lib/cardTrigger'
 import { useEffect, useRef, useState } from 'react'
 
 /*
@@ -9,7 +10,7 @@ import { useEffect, useRef, useState } from 'react'
   - Ao sair, some com fade, pausa e volta ao início.
   - O player é recortado para preencher o card (4:5), como uma imagem com "object-fit: cover".
   Conversa com o player pela API de mensagens do Vimeo (postMessage), sem bibliotecas extras.
-  Desligado em telas de toque e para quem prefere menos movimento.
+  Com mouse toca no hover; no celular, quando o card passa pelo centro da tela (cardTrigger.ts).
 */
 const ORIGIN = 'https://player.vimeo.com'
 
@@ -21,8 +22,9 @@ export function CardVimeo({ url }: { url: string }) {
     const box: HTMLDivElement | null = ref.current
     const card = box?.closest('.card') as HTMLElement | null
     if (!box || !card) return
-    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    // Com mouse: toca no hover. No celular: toca quando o card passa pelo centro da tela.
+    const mode = videoMode()
+    if (!mode) return
 
     const m = /vimeo\.com\/(?:.*?\/)?(\d+)(?:\/([a-zA-Z0-9]+))?/.exec(url)
     if (!m) return
@@ -103,18 +105,12 @@ export function CardVimeo({ url }: { url: string }) {
         }
       }, 450)
     }
-    card.addEventListener('pointerenter', enter)
-    card.addEventListener('pointerleave', leave)
-    card.addEventListener('focus', enter)
-    card.addEventListener('blur', leave)
+    const unbind = bindCardTrigger(card, enter, leave, mode)
 
     return () => {
       io.disconnect()
       window.removeEventListener('message', onMessage)
-      card.removeEventListener('pointerenter', enter)
-      card.removeEventListener('pointerleave', leave)
-      card.removeEventListener('focus', enter)
-      card.removeEventListener('blur', leave)
+      unbind()
       iframe?.remove()
     }
   }, [url])
