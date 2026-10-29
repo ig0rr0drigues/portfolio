@@ -21,4 +21,4 @@ export const projectQuery = `*[_type == "project" && slug.current == $slug][0] {
   }
 }`
 
-export const settingsQuery = `*[_type == "siteSettings"][0]`
+export const settingsQuery = `*[_type == "siteSettings"][0]{ ..., aboutPhoto ${imageFields}, "aboutVideo": aboutVideo.asset->url }`

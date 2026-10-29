@@ -40,6 +40,9 @@ export type Settings = {
   intro?: Localized
   aboutLead?: Localized
   aboutBody?: Localized
+  aboutPhoto?: SanityImg
+  aboutVideo?: string | null
+  aboutVimeo?: string | null
   tools?: string[]
   education?: Localized[]
   offClock?: Localized
