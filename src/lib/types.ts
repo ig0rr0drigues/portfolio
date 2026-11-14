@@ -45,6 +45,8 @@ export type Settings = {
   aboutVideo?: string | null
   aboutVimeo?: string | null
   archiveIntro?: Localized
+  experience?: { _key: string; start?: string; end?: string; company?: string; role?: Localized; city?: string }[]
+  awards?: { _key: string; year?: string; festival?: string; level?: string; work?: string; category?: string }[]
   tools?: string[]
   education?: Localized[]
   offClock?: Localized

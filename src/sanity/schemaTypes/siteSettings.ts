@@ -43,6 +43,54 @@ export const siteSettings = defineType({
       validation: (r) =>
         r.custom((value) => (!value || /vimeo\.com\/(?:.*\/)?\d+/.test(String(value)) ? true : 'Esse link não parece ser do Vimeo.')),
     }),
+    defineField({
+      name: 'experience',
+      title: 'Experiência',
+      type: 'array',
+      group: 'about',
+      description: 'Da mais recente para a mais antiga. Arraste para reordenar.',
+      of: [
+        defineArrayMember({
+          type: 'object',
+          name: 'job',
+          fields: [
+            defineField({ name: 'start', title: 'Ano de início', type: 'string', validation: (r) => r.required() }),
+            defineField({ name: 'end', title: 'Ano de saída', type: 'string', description: 'Deixe vazio se for o emprego atual (aparece "Atual").' }),
+            defineField({ name: 'company', title: 'Agência / empresa', type: 'string', validation: (r) => r.required() }),
+            defineField({ name: 'role', title: 'Cargo', type: 'localeString' }),
+            defineField({ name: 'city', title: 'Cidade', type: 'string' }),
+          ],
+          preview: {
+            select: { company: 'company', role: 'role.pt', start: 'start', end: 'end' },
+            prepare: ({ company, role, start, end }) => ({ title: company, subtitle: [`${start || ''}–${end || 'atual'}`, role].filter(Boolean).join(' · ') }),
+          },
+        }),
+      ],
+    }),
+    defineField({
+      name: 'awards',
+      title: 'Prêmios',
+      type: 'array',
+      group: 'about',
+      description: 'Do mais recente para o mais antigo. Arraste para reordenar.',
+      of: [
+        defineArrayMember({
+          type: 'object',
+          name: 'award',
+          fields: [
+            defineField({ name: 'year', title: 'Ano', type: 'string', validation: (r) => r.required() }),
+            defineField({ name: 'festival', title: 'Festival', type: 'string', description: 'Ex.: Cannes Lions, CCSP, El Ojo', validation: (r) => r.required() }),
+            defineField({ name: 'level', title: 'Prêmio', type: 'string', description: 'Ex.: Ouro, Prata, Bronze, Shortlist' }),
+            defineField({ name: 'work', title: 'Trabalho', type: 'string', description: 'Nome do projeto premiado.' }),
+            defineField({ name: 'category', title: 'Categoria', type: 'string', description: 'Ex.: Design, Outdoor (opcional)' }),
+          ],
+          preview: {
+            select: { festival: 'festival', level: 'level', year: 'year', work: 'work' },
+            prepare: ({ festival, level, year, work }) => ({ title: [festival, level].filter(Boolean).join(' · '), subtitle: [year, work].filter(Boolean).join(' · ') }),
+          },
+        }),
+      ],
+    }),
     defineField({ name: 'tools', title: 'Ferramentas', type: 'array', group: 'about', of: [defineArrayMember({ type: 'string' })] }),
     defineField({ name: 'education', title: 'Formação', type: 'array', group: 'about', of: [defineArrayMember({ type: 'localeString' })] }),
     defineField({ name: 'offClock', title: 'Fora do estúdio', type: 'localeString', group: 'about' }),

@@ -22,6 +22,8 @@ export default async function About({ params }: { params: Promise<{ lang: string
   const education = (s?.education || []).map((e) => L(e, lang)).filter(Boolean)
   const off = L(s?.offClock, lang)
   const photo = s?.aboutPhoto?.url ? s.aboutPhoto : null
+  const jobs = (s?.experience || []).filter((j) => j.company)
+  const awards = (s?.awards || []).filter((a) => a.festival)
 
   return (
     <section className={`wrap about${photo ? ' about--photo' : ''}`}>
@@ -73,6 +75,57 @@ export default async function About({ params }: { params: Promise<{ lang: string
           )}
         </dl>
       </div>
+
+      {jobs.length > 0 && (
+        <section className="cv" aria-labelledby="cv-exp">
+          <h2 id="cv-exp" className="cv__title reveal">{t.experience}</h2>
+          <div className="cv__head cv__row cv__row--exp rotulo" aria-hidden="true">
+            <span>{t.period}</span>
+            <span>{t.company}</span>
+            <span>{t.position}</span>
+            <span />
+          </div>
+          <ul className="cv__list">
+            {jobs.map((j) => (
+              <li key={j._key} className="cv__row cv__row--exp reveal">
+                <span className="cv__year">
+                  {j.start}
+                  {j.end !== j.start && <>–{j.end || t.current}</>}
+                </span>
+                <span className="cv__main">{j.company}</span>
+                <span>{L(j.role, lang)}</span>
+                <span className="cv__meta">{j.city}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {awards.length > 0 && (
+        <section className="cv" aria-labelledby="cv-awards">
+          <h2 id="cv-awards" className="cv__title reveal">{t.awards}</h2>
+          <div className="cv__head cv__row cv__row--award rotulo" aria-hidden="true">
+            <span>{t.year}</span>
+            <span>{t.festival}</span>
+            <span>{t.project}</span>
+          </div>
+          <ul className="cv__list">
+            {awards.map((a) => (
+              <li key={a._key} className="cv__row cv__row--award reveal">
+                <span className="cv__year">{a.year}</span>
+                <span className="cv__main">
+                  {a.festival}
+                  {a.level && <em className="cv__level"> {a.level}</em>}
+                </span>
+                <span>
+                  {a.work}
+                  {a.category && <span className="cv__meta"> — {a.category}</span>}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
     </section>
   )
 }
