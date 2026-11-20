@@ -30,8 +30,28 @@ export function ProjectView({ p, all, lang, basePath, backHref, backLabel, nextL
   const team = (p.team || []).filter((m) => m.name)
   const recognition = (p.recognition || []).filter(Boolean)
 
+  const isArchive = basePath.endsWith('/arquivo')
+  const listLabel = isArchive ? t.archive : t.work
+
   return (
-    <article>
+    <div className="project-shell">
+      {/* Lista lateral com todos os cases da seção (aparece em telas largas). */}
+      <nav className="case-nav" aria-label={listLabel}>
+        <p className="rotulo case-nav__label">{listLabel}</p>
+        <ol className="case-nav__list">
+          {all.map((x) => {
+            const current = x.slug === p.slug
+            return (
+              <li key={x.slug}>
+                <Link href={`${basePath}/${x.slug}`} className={`case-nav__link${current ? ' is-current' : ''}`} aria-current={current ? 'page' : undefined}>
+                  {x.title}
+                </Link>
+              </li>
+            )
+          })}
+        </ol>
+      </nav>
+    <article className="project-main">
       <header className="wrap project-head">
         <Link className="back" href={backHref}>
           <span aria-hidden="true">←</span> {backLabel}
@@ -112,5 +132,6 @@ export function ProjectView({ p, all, lang, basePath, backHref, backLabel, nextL
       )}
       <BackToTop label={t.toTop} />
     </article>
+    </div>
   )
 }

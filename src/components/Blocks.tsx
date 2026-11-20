@@ -10,7 +10,9 @@ function Img({ img, alt, sizes, ratio, eager }: { img: SanityImg; alt: string; s
   const w = img.w || 1600
   const h = ratio ? Math.round(w / ratio) : img.h || 900
   return (
-    // eslint-disable-next-line @next/next/no-img-element
+    // A moldura (.media) arredonda os cantos e recorta o zoom da animação de entrada.
+    <span className="media">
+    {/* eslint-disable-next-line @next/next/no-img-element */}
     <img
       src={imageUrl(img, 1600, ratio)}
       srcSet={srcSet(img, [800, 1600, 2400], ratio)}
@@ -21,6 +23,7 @@ function Img({ img, alt, sizes, ratio, eager }: { img: SanityImg; alt: string; s
       loading={eager ? 'eager' : 'lazy'}
       decoding="async"
     />
+    </span>
   )
 }
 
@@ -75,7 +78,9 @@ export function Blocks({ blocks, lang, title }: { blocks: Block[]; lang: Lang; t
             if (!b.url) return null
             return (
               <figure key={b._key} className="block-video reveal reveal--media">
-                <Vimeo url={b.url} ratio={b.ratio} customWidth={b.customWidth} customHeight={b.customHeight} loop={b.loop} title={L(b.caption, lang) || `${title} — ${t.video}`} />
+                <div className="media media--video">
+                  <Vimeo url={b.url} ratio={b.ratio} customWidth={b.customWidth} customHeight={b.customHeight} loop={b.loop} title={L(b.caption, lang) || `${title} — ${t.video}`} />
+                </div>
                 <Caption text={L(b.caption, lang)} />
               </figure>
             )

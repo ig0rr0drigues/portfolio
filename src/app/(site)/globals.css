@@ -24,6 +24,9 @@
   --space-12: 48px;
   --space-24: 96px;
   --gutter: clamp(16px, 3.4vw, 48px);
+  /* Respiro entre imagens e raio dos cantos (grids, blocos de projeto, foto do Sobre). */
+  --respiro: 6px;
+  --raio: 10px;
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
   color-scheme: light;
 }
@@ -83,8 +86,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--laranja); outli
 .empty { padding-block: var(--space-24); color: var(--tinta-suave); }
 
 /* Mosaico */
-.grid { display: grid; grid-template-columns: repeat(var(--cols, 2), minmax(0, 1fr)); }
-.card { position: relative; display: block; overflow: hidden; color: var(--sobre-veu); text-decoration: none; background: var(--papel-elevado); }
+.grid { display: grid; grid-template-columns: repeat(var(--cols, 2), minmax(0, 1fr)); gap: var(--respiro); padding-inline: var(--respiro); }
+.card { position: relative; display: block; overflow: hidden; isolation: isolate; border-radius: var(--raio); color: var(--sobre-veu); text-decoration: none; background: var(--papel-elevado); }
 .card img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; transition: transform 0.8s var(--ease); }
 .card__veil { position: absolute; inset: 0; background: var(--veu); opacity: 0; transition: opacity 0.35s ease; }
 .card__info { position: absolute; left: var(--gutter); right: var(--gutter); bottom: var(--gutter); opacity: 0; transform: translateY(12px); transition: opacity 0.35s ease, transform 0.35s var(--ease); }
@@ -115,8 +118,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--laranja); outli
 .archive-title { margin: 0; font-family: var(--font-display), 'Arial Black', sans-serif; font-weight: 700; font-size: clamp(44px, 9vw, 144px); line-height: 0.92; letter-spacing: -0.035em; }
 .archive-intro { margin: 0; color: var(--tinta-suave); flex: 0 1 360px; max-width: 36ch; }
 .archive-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-12) var(--space-6); padding-bottom: var(--space-24); }
-.card--archive { background: none; overflow: visible; color: var(--tinta); }
-.card__media { position: relative; display: block; overflow: hidden; background: var(--papel-elevado); }
+.card--archive { background: none; overflow: visible; border-radius: 0; color: var(--tinta); }
+.card__media { position: relative; display: block; overflow: hidden; isolation: isolate; border-radius: var(--raio); background: var(--papel-elevado); }
 .card__caption { display: flex; flex-direction: column; gap: 2px; margin-top: var(--space-3); }
 .card__caption-title { align-self: flex-start; font-family: var(--font-display), 'Arial Black', sans-serif; font-weight: 500; font-size: 18px; line-height: 24px; letter-spacing: -0.01em; background-image: linear-gradient(var(--laranja), var(--laranja)); background-size: 0 2px; background-position: 0 100%; background-repeat: no-repeat; transition: background-size 0.35s var(--ease); }
 .card--archive:hover .card__caption-title, .card--archive:focus-visible .card__caption-title { background-size: 100% 2px; }
@@ -140,10 +143,14 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--laranja); outli
 .credits .wide { grid-column: 1 / -1; }
 
 /* Blocos */
-.blocks { display: flex; flex-direction: column; }
+.blocks { display: flex; flex-direction: column; gap: var(--respiro); }
 .blocks figure { margin: 0; }
-.block-image img, .block-pair img { display: block; width: 100%; height: auto; background: var(--papel-elevado); }
-.block-pair { display: grid; grid-template-columns: 1fr 1fr; }
+.block-image, .block-pair, .block-video { margin-inline: var(--respiro); }
+.media { display: block; overflow: hidden; isolation: isolate; border-radius: var(--raio); background: var(--papel-elevado); }
+.media--video { background: #000; }
+.media--video:has(.vimeo--tall) { width: fit-content; margin-inline: auto; }
+.block-image img, .block-pair img { display: block; width: 100%; height: auto; }
+.block-pair { display: grid; grid-template-columns: 1fr 1fr; gap: var(--respiro); }
 .block-pair img { object-fit: cover; }
 .block-text { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--space-6); padding-block: clamp(48px, 7vw, 112px); }
 .block-text__heading { grid-column: 1 / span 4; margin: 0; font-family: var(--font-display), 'Arial Black', sans-serif; font-weight: 500; font-size: clamp(22px, 2.2vw, 32px); line-height: 1.15; letter-spacing: -0.02em; text-wrap: balance; }
@@ -154,11 +161,10 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--laranja); outli
 .block-text__body li + li { margin-top: var(--space-1); }
 .rich-link { text-decoration: none; background-image: linear-gradient(var(--laranja), var(--laranja)); background-size: 100% 1px; background-position: 0 100%; background-repeat: no-repeat; transition: background-size 0.25s var(--ease), color 0.2s; }
 .rich-link:hover { color: var(--laranja-texto); background-size: 100% 2px; }
-.block-video { background: #000; }
 .vimeo { position: relative; width: 100%; margin-inline: auto; }
 .vimeo--tall { width: auto; height: min(100vh, 900px); }
 .vimeo iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-.caption { margin: 0; padding-block: var(--space-3); font-size: 13px; line-height: 18px; color: var(--tinta-suave); background: var(--papel); }
+.caption { margin: 0; padding-block: var(--space-2) var(--space-3); font-size: 13px; line-height: 18px; color: var(--tinta-suave); background: var(--papel); }
 .next { display: block; text-decoration: none; padding-block: clamp(48px, 8vw, 120px); border-top: 1px solid var(--linha); }
 .next__title { display: inline-block; margin-top: var(--space-3); font-family: var(--font-display), 'Arial Black', sans-serif; font-weight: 700; font-size: clamp(36px, 7vw, 112px); line-height: 0.95; letter-spacing: -0.035em; background-image: linear-gradient(var(--laranja), var(--laranja)); background-size: 0 4px; background-position: 0 100%; background-repeat: no-repeat; padding-bottom: 6px; transition: background-size 0.45s var(--ease); }
 .next:hover .next__title, .next:focus-visible .next__title { background-size: 100% 4px; }
@@ -215,8 +221,25 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--laranja); outli
   .cv__row--exp .cv__meta { text-align: left; }
 }
 
+/* Lista lateral de cases nas páginas de projeto (só em telas largas). */
+.case-nav { display: none; }
+@media (min-width: 1100px) {
+  .project-shell { display: grid; grid-template-columns: 200px minmax(0, 1fr); align-items: start; }
+  .project-main { min-width: 0; }
+  .project-main .wrap { padding-left: var(--space-6); }
+  .case-nav { display: block; position: sticky; top: 0; max-height: 100vh; overflow-y: auto; padding: var(--space-6) 0 var(--space-6) max(var(--gutter), env(safe-area-inset-left, 0px)); }
+  .case-nav__label { margin: 0 0 var(--space-3); }
+  .case-nav__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+  .case-nav__link { position: relative; display: block; padding: 3px 0 3px 14px; font-size: 13px; line-height: 18px; color: var(--tinta-suave); text-decoration: none; transition: color 0.2s ease; }
+  .case-nav__link::before { content: ''; position: absolute; left: 0; top: 50%; width: 6px; height: 6px; margin-top: -3px; border-radius: 9999px; background: var(--laranja); transform: scale(0); transition: transform 0.25s var(--ease); }
+  .case-nav__link:hover { color: var(--tinta); }
+  .case-nav__link:hover::before { transform: scale(0.6); }
+  .case-nav__link.is-current { color: var(--tinta); font-weight: 500; }
+  .case-nav__link.is-current::before { transform: none; }
+}
+
 /* Foto que vira vídeo (AboutMedia.tsx). */
-.portrait { position: relative; margin: 0; overflow: hidden; aspect-ratio: 4 / 5; background: var(--papel-elevado); }
+.portrait { position: relative; margin: 0; overflow: hidden; isolation: isolate; border-radius: var(--raio); aspect-ratio: 4 / 5; background: var(--papel-elevado); }
 .portrait img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .portrait__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.45s ease; }
 .portrait.is-playing .portrait__video { opacity: 1; }
